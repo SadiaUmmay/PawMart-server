@@ -70,6 +70,28 @@ async function run() {
       res.send(result);
     });
 
+   
+app.put("/mylistings/:id", async (req, res) => {
+  try {
+    const id = req.params.id;
+    const updatedService = req.body;
+
+    const result = await serviceCollection.updateOne(
+      { _id: new ObjectId(id) },
+      { $set: updatedService }
+    );
+
+    if (result.modifiedCount === 0) {
+      return res.status(404).send({ message: "Service not found!" });
+    }
+
+    res.send({ success: true, message: "Service updated successfully!" });
+  } catch (error) {
+    console.log(error);
+    res.status(500).send({ message: "Failed to update service" });
+  }
+});
+
 
 
 
