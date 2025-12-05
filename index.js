@@ -45,6 +45,13 @@ async function run() {
       res.send(service);
     });
 
+    app.post('/orders',async(req,res)=>{
+      const data=req.body
+      const result=await ordercollection.insertOne(data)
+      res.status(201).send(result)
+      console.log(result);
+    })
+
 
 
     // Test ping
