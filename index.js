@@ -63,6 +63,15 @@ async function run() {
     });
 
 
+    app.get("/mylistings", async (req, res) => {
+      const { email } = req.query;
+      const query = email ? { email: email } : {};
+      const result = await serviceCollection.find(query).toArray();
+      res.send(result);
+    });
+
+
+
 
     // Test ping
     await client.db("admin").command({ ping: 1 });
