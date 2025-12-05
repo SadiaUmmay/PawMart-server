@@ -33,7 +33,10 @@ async function run() {
       res.send({ success: true, insertedId: result.insertedId });
     });
 
-   
+    app.get("/service", async (req, res) => {
+      const result = await serviceCollection.find({}).toArray();
+      res.send(result);
+    });
 
 
     // Test ping
