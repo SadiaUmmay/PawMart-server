@@ -92,6 +92,25 @@ app.put("/mylistings/:id", async (req, res) => {
   }
 });
 
+app.delete("/mylistings/:id", async (req, res) => {
+  try {
+    const id = req.params.id;
+
+    const result = await serviceCollection.deleteOne({
+      _id: new ObjectId(id),
+    });
+
+    if (result.deletedCount === 0) {
+      return res.status(404).send({ message: "Service not found!" });
+    }
+
+    res.send({ success: true, message: "Service deleted successfully!" });
+  } catch (error) {
+    console.log(error);
+    res.status(500).send({ message: "Failed to delete service" });
+  }
+});
+
 
 
 
